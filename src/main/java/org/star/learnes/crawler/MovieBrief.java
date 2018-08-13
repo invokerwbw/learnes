@@ -7,6 +7,10 @@ import com.geccocrawler.gecco.spider.HtmlBean;
 public class MovieBrief implements HtmlBean {
 
     @Text
+    @HtmlField(cssPath = ".pic em")
+    private String id;
+
+    @Text
     @HtmlField(cssPath = "div.hd > a > span:nth-child(1)")
     private String title;
 
@@ -21,6 +25,14 @@ public class MovieBrief implements HtmlBean {
     @Text
     @HtmlField(cssPath = ".quote span.inq")
     private String quote;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;

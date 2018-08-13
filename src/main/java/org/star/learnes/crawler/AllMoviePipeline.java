@@ -4,6 +4,7 @@ import com.geccocrawler.gecco.GeccoEngine;
 import com.geccocrawler.gecco.annotation.PipelineName;
 import com.geccocrawler.gecco.pipeline.Pipeline;
 
+import java.util.Arrays;
 import java.util.List;
 
 @PipelineName("allMoviePipeline")
@@ -13,10 +14,30 @@ public class AllMoviePipeline implements Pipeline<AllMovie> {
 
         List<MovieBrief> movieBriefs = allMovie.getDetails();
         for (MovieBrief movieBrief : movieBriefs) {
-            System.out.println(movieBrief.getTitle());
-            System.out.println(movieBrief.getInfo());
-            System.out.println(movieBrief.getQuote());
-            System.out.println(movieBrief.getRatingNum());
+            System.out.println("ID : " + movieBrief.getId());
+            System.out.println("Titile : " + movieBrief.getTitle());
+            System.out.println("Quote : " + movieBrief.getQuote());
+            System.out.println("Score : " + movieBrief.getRatingNum());
+
+            String director = null;
+            String year = null;
+            List<String> tag = null;
+            String info = movieBrief.getInfo();
+            if (!"".equals(info)) {
+                String[] infos = info.split("\\.\\.\\.");
+                if (infos != null && infos.length == 2) {
+                    director = infos[0].split(" ")[1];
+                    String[] others = infos[1].split("/");
+                    if (others != null && others.length == 3) {
+                        year = others[0];
+                        String[] tags = others[2].split(" ");
+                        tag = Arrays.asList(tags);
+                    }
+                }
+                System.out.println("Director : " + director);
+                System.out.println("Year : " + year);
+                System.out.println("Tag : " + tag);
+            }
         }
 
     }
