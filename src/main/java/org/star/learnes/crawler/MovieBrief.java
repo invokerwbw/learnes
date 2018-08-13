@@ -14,8 +14,7 @@ public class MovieBrief implements HtmlBean {
     @HtmlField(cssPath = "div.hd > a > span:nth-child(1)")
     private String title;
 
-    @Text
-    @HtmlField(cssPath = ".bd p")
+    @HtmlField(cssPath = ".bd p:nth-child(1)")
     private String info;
 
     @Text

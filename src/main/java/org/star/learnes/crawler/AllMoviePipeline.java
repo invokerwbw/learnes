@@ -28,7 +28,6 @@ public class AllMoviePipeline implements Pipeline<AllMovie> {
         HttpPost post = new HttpPost("http://localhost:8080/movie");
         post.setHeader("Content-type", "application/json");
 
-
         List<MovieBrief> movieBriefs = allMovie.getDetails();
         for (MovieBrief movieBrief : movieBriefs) {
 
@@ -42,10 +41,10 @@ public class AllMoviePipeline implements Pipeline<AllMovie> {
             List<String> tag = null;
             String info = movieBrief.getInfo();
             if (!"".equals(info)) {
-                String[] infos = info.split("\\.\\.\\.");
+                String[] infos = info.split("<br>");
                 if (infos != null && infos.length == 2) {
                     director = infos[0].split(" ")[1];
-                    String[] others = infos[1].split("/");
+                    String[] others = infos[1].replace("&nbsp;", " ").split("/");
                     if (others != null && others.length == 3) {
                         year = others[0];
                         String[] tags = others[2].split(" ");
@@ -62,6 +61,7 @@ public class AllMoviePipeline implements Pipeline<AllMovie> {
             movie.setTag(tag);
             movie.setYear(year);
             movie.setScore(Float.parseFloat(score));
+            System.out.println("Movie : " + JSON.toJSONString(movie));
 
             StringEntity requestEntity = new StringEntity(JSON.toJSONString(movie), "utf-8");
             requestEntity.setContentEncoding("UTF-8");
