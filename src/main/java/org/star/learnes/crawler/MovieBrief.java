@@ -20,7 +20,7 @@ public class MovieBrief implements HtmlBean {
 
     @Text
     @HtmlField(cssPath = ".rating_num")
-    private String ratingNum;
+    private String score;
 
     @Text
     @HtmlField(cssPath = ".quote span.inq")
@@ -50,12 +50,12 @@ public class MovieBrief implements HtmlBean {
         this.info = info;
     }
 
-    public String getRatingNum() {
-        return ratingNum;
+    public String getScore() {
+        return score;
     }
 
-    public void setRatingNum(String ratingNum) {
-        this.ratingNum = ratingNum;
+    public void setScore(String score) {
+        this.score = score;
     }
 
     public String getQuote() {

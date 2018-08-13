@@ -1,9 +1,21 @@
 package org.star.learnes.crawler;
 
+import com.alibaba.fastjson.JSON;
 import com.geccocrawler.gecco.GeccoEngine;
 import com.geccocrawler.gecco.annotation.PipelineName;
 import com.geccocrawler.gecco.pipeline.Pipeline;
+import com.geccocrawler.gecco.request.HttpRequest;
+import com.geccocrawler.gecco.scheduler.DeriveSchedulerContext;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+import org.star.learnes.domain.Movie;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,12 +24,18 @@ public class AllMoviePipeline implements Pipeline<AllMovie> {
     @Override
     public void process(AllMovie allMovie) {
 
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpPost post = new HttpPost("http://localhost:8080/movie");
+        post.setHeader("Content-type", "application/json");
+
+
         List<MovieBrief> movieBriefs = allMovie.getDetails();
         for (MovieBrief movieBrief : movieBriefs) {
-            System.out.println("ID : " + movieBrief.getId());
-            System.out.println("Titile : " + movieBrief.getTitle());
-            System.out.println("Quote : " + movieBrief.getQuote());
-            System.out.println("Score : " + movieBrief.getRatingNum());
+
+            String id = movieBrief.getId();
+            String title = movieBrief.getTitle();
+            String quote = movieBrief.getQuote();
+            String score = movieBrief.getScore();
 
             String director = null;
             String year = null;
@@ -34,10 +52,35 @@ public class AllMoviePipeline implements Pipeline<AllMovie> {
                         tag = Arrays.asList(tags);
                     }
                 }
-                System.out.println("Director : " + director);
-                System.out.println("Year : " + year);
-                System.out.println("Tag : " + tag);
             }
+
+            Movie movie = new Movie();
+            movie.setId(id);
+            movie.setTitle(title);
+            movie.setQuote(quote);
+            movie.setDirector(director);
+            movie.setTag(tag);
+            movie.setYear(year);
+            movie.setScore(Float.parseFloat(score));
+
+            StringEntity requestEntity = new StringEntity(JSON.toJSONString(movie), "utf-8");
+            requestEntity.setContentEncoding("UTF-8");
+            post.setEntity(requestEntity);
+            try {
+                CloseableHttpResponse response = client.execute(post);
+                String responseContent = EntityUtils.toString(response.getEntity(), "UTF-8");
+                System.out.println(responseContent);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        HttpRequest request = allMovie.getRequest();
+        int thisPage = allMovie.getThisPage();
+        if (thisPage != 0 && thisPage < 10) {
+            String thisUrl = request.getUrl();
+            String nextUrl = StringUtils.replaceOnce(thisUrl, "start=" + (thisPage - 1) * 25, "start=" + thisPage * 25);
+            DeriveSchedulerContext.into(request.subRequest(nextUrl));
         }
 
     }
@@ -47,7 +90,7 @@ public class AllMoviePipeline implements Pipeline<AllMovie> {
                 //Gecco搜索的包路径
                 .classpath("org.star.learnes.crawler")
                 //开始抓取的页面地址
-                .start("https://movie.douban.com/top250")
+                .start("https://movie.douban.com/top250?start=0&filter=")
                 //开启几个爬虫线程
                 .thread(1)
                 //单个爬虫每次抓取完一个请求后的间隔时间

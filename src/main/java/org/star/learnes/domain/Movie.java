@@ -19,7 +19,7 @@ public class Movie implements Serializable {
     /**
      * 名称
      */
-    private String name;
+    private String title;
 
     /**
      * 导演
@@ -41,6 +41,11 @@ public class Movie implements Serializable {
      */
     private Float score;
 
+    /**
+     * 引用
+     */
+    private String quote;
+
     public String getId() {
         return id;
     }
@@ -49,12 +54,16 @@ public class Movie implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getTitle() {
+        return title;
+    }
+
+    public void setName(String title) {
+        this.title = title;
     }
 
     public String getDirector() {
@@ -87,5 +96,13 @@ public class Movie implements Serializable {
 
     public void setScore(Float score) {
         this.score = score;
+    }
+
+    public String getQuote() {
+        return quote;
+    }
+
+    public void setQuote(String quote) {
+        this.quote = quote;
     }
 }
