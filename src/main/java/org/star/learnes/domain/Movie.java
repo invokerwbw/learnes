@@ -46,6 +46,11 @@ public class Movie implements Serializable {
      */
     private String quote;
 
+    /**
+     * 豆瓣链接地址
+     */
+    private String url;
+
     public Integer getId() {
         return id;
     }
@@ -104,5 +109,13 @@ public class Movie implements Serializable {
 
     public void setQuote(String quote) {
         this.quote = quote;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

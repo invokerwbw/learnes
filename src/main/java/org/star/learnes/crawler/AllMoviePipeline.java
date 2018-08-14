@@ -35,6 +35,7 @@ public class AllMoviePipeline implements Pipeline<AllMovie> {
             String title = movieBrief.getTitle();
             String quote = movieBrief.getQuote();
             Float score = movieBrief.getScore();
+            String url = movieBrief.getUrll();
 
             String director = null;
             String year = null;
@@ -61,7 +62,8 @@ public class AllMoviePipeline implements Pipeline<AllMovie> {
             movie.setTag(tag);
             movie.setYear(year);
             movie.setScore(score);
-            System.out.println("Movie : " + JSON.toJSONString(movie));
+            movie.setUrl(url);
+//            System.out.println("Movie : " + JSON.toJSONString(movie));
 
             StringEntity requestEntity = new StringEntity(JSON.toJSONString(movie), "utf-8");
             requestEntity.setContentEncoding("UTF-8");
@@ -69,7 +71,7 @@ public class AllMoviePipeline implements Pipeline<AllMovie> {
             try {
                 CloseableHttpResponse response = client.execute(post);
                 String responseContent = EntityUtils.toString(response.getEntity(), "UTF-8");
-                System.out.println(responseContent);
+                System.out.println("save movie : " + responseContent);
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -1,5 +1,6 @@
 package org.star.learnes.crawler;
 
+import com.geccocrawler.gecco.annotation.Attr;
 import com.geccocrawler.gecco.annotation.HtmlField;
 import com.geccocrawler.gecco.annotation.Text;
 import com.geccocrawler.gecco.spider.HtmlBean;
@@ -24,6 +25,10 @@ public class MovieBrief implements HtmlBean {
     @Text
     @HtmlField(cssPath = ".quote span.inq")
     private String quote;
+
+    @Attr("href")
+    @HtmlField(cssPath = "div.hd > a")
+    private String urll;
 
     public String getTitle() {
         return title;
@@ -63,5 +68,13 @@ public class MovieBrief implements HtmlBean {
 
     public void setScore(Float score) {
         this.score = score;
+    }
+
+    public String getUrll() {
+        return urll;
+    }
+
+    public void setUrll(String urll) {
+        this.urll = urll;
     }
 }
