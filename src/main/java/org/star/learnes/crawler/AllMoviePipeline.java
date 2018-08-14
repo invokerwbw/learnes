@@ -35,7 +35,7 @@ public class AllMoviePipeline implements Pipeline<AllMovie> {
             String title = movieBrief.getTitle();
             String quote = movieBrief.getQuote();
             Float score = movieBrief.getScore();
-            String url = movieBrief.getUrll();
+            String url = movieBrief.getUrl();
 
             String director = null;
             String year = null;

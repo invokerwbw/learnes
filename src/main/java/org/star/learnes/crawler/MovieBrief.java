@@ -28,7 +28,7 @@ public class MovieBrief implements HtmlBean {
 
     @Attr("href")
     @HtmlField(cssPath = "div.hd > a")
-    private String urll;
+    private String url;
 
     public String getTitle() {
         return title;
@@ -70,11 +70,11 @@ public class MovieBrief implements HtmlBean {
         this.score = score;
     }
 
-    public String getUrll() {
-        return urll;
+    public String getUrl() {
+        return url;
     }
 
-    public void setUrll(String urll) {
-        this.urll = urll;
+    public void setUrl(String urll) {
+        this.url = urll;
     }
 }
