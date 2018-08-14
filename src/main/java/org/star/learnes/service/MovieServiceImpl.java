@@ -33,8 +33,22 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public Movie modifyMovie(Movie movie) {
+        String id = movie.getId();
+        Optional<Movie> old = movieRepository.findById(id);
+        if (old.isPresent()) {
+            Movie oldMovie = old.get();
+            oldMovie.setYear(movie.getYear());
+            oldMovie.setDirector(movie.getDirector());
+            return movieRepository.save(oldMovie);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public Page<Movie> listMovie() {
-        Pageable pageable = PageRequest.of(DEFAULT_PAGE, DEFAULT_SIZE, Sort.by("id"));
+        Pageable pageable = PageRequest.of(DEFAULT_PAGE, DEFAULT_SIZE, Sort.by("ranking"));
         return movieRepository.findAll(pageable);
     }
 
@@ -48,12 +62,12 @@ public class MovieServiceImpl implements MovieService {
             LOGGER.warn("size : " + size + " less than zero");
             size = DEFAULT_SIZE;
         }
-        Pageable pageable = PageRequest.of(page, size, Sort.by("id"));
+        Pageable pageable = PageRequest.of(page, size, Sort.by("ranking"));
         return movieRepository.findAll(pageable);
     }
 
     @Override
-    public Movie getMovieById(Integer id) {
+    public Movie getMovieById(String id) {
         Optional<Movie> movie = movieRepository.findById(id);
         if (movie.isPresent()) {
             return movie.get();

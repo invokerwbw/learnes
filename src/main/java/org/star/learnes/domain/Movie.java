@@ -14,7 +14,12 @@ public class Movie implements Serializable {
     /**
      * id
      */
-    private Integer id;
+    private String id;
+
+    /**
+     * 排名
+     */
+    private Integer ranking;
 
     /**
      * 名称
@@ -24,7 +29,7 @@ public class Movie implements Serializable {
     /**
      * 导演
      */
-    private String director;
+    private List<String> director;
 
     /**
      * 年份
@@ -51,14 +56,6 @@ public class Movie implements Serializable {
      */
     private String url;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -69,14 +66,6 @@ public class Movie implements Serializable {
 
     public void setName(String title) {
         this.title = title;
-    }
-
-    public String getDirector() {
-        return director;
-    }
-
-    public void setDirector(String director) {
-        this.director = director;
     }
 
     public String getYear() {
@@ -117,5 +106,29 @@ public class Movie implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Integer getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(Integer ranking) {
+        this.ranking = ranking;
+    }
+
+    public List<String> getDirector() {
+        return director;
+    }
+
+    public void setDirector(List<String> director) {
+        this.director = director;
     }
 }

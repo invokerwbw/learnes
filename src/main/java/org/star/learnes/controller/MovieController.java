@@ -22,9 +22,25 @@ public class MovieController {
      * @param movie
      * @return
      */
-    @PostMapping(value = "/movie")
+    @PutMapping(value = "/movie")
     public ResponseEntity<Movie> saveMovie(@RequestBody Movie movie) {
         return ResponseEntity.ok(movieService.saveMovie(movie));
+    }
+
+    /**
+     * 修改电影
+     *
+     * @param movie
+     * @return
+     */
+    @PostMapping(value = "/movie")
+    public ResponseEntity<Movie> modifyMovie(@RequestBody Movie movie) {
+        Movie result = movieService.modifyMovie(movie);
+        if (movie != null) {
+            return ResponseEntity.ok(result);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     /**
@@ -34,7 +50,7 @@ public class MovieController {
      * @return
      */
     @GetMapping(value = "/movie/{id}")
-    public ResponseEntity<Movie> getMovieById(@PathVariable Integer id) {
+    public ResponseEntity<Movie> getMovieById(@PathVariable String id) {
 
         Movie movie = movieService.getMovieById(id);
         if (movie != null) {

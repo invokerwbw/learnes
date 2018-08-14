@@ -17,6 +17,14 @@ public interface MovieService {
     Movie saveMovie(Movie movie);
 
     /**
+     * 修改电影
+     *
+     * @param movie
+     * @return
+     */
+    Movie modifyMovie(Movie movie);
+
+    /**
      * 获取电影列表（使用默认分页）
      *
      * @return
@@ -37,6 +45,6 @@ public interface MovieService {
      *
      * @return
      */
-    Movie getMovieById(Integer id);
+    Movie getMovieById(String id);
 
 }
