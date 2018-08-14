@@ -31,10 +31,10 @@ public class AllMoviePipeline implements Pipeline<AllMovie> {
         List<MovieBrief> movieBriefs = allMovie.getDetails();
         for (MovieBrief movieBrief : movieBriefs) {
 
-            String id = movieBrief.getId();
+            Integer id = movieBrief.getId();
             String title = movieBrief.getTitle();
             String quote = movieBrief.getQuote();
-            String score = movieBrief.getScore();
+            Float score = movieBrief.getScore();
 
             String director = null;
             String year = null;
@@ -42,12 +42,12 @@ public class AllMoviePipeline implements Pipeline<AllMovie> {
             String info = movieBrief.getInfo();
             if (!"".equals(info)) {
                 String[] infos = info.split("<br>");
-                if (infos != null && infos.length == 2) {
+                if (infos != null && infos.length >= 2) {
                     director = infos[0].split(" ")[1];
                     String[] others = infos[1].replace("&nbsp;", " ").split("/");
-                    if (others != null && others.length == 3) {
-                        year = others[0];
-                        String[] tags = others[2].split(" ");
+                    if (others != null && others.length >= 3) {
+                        year = others[0].trim();
+                        String[] tags = others[others.length - 1].trim().split(" ");
                         tag = Arrays.asList(tags);
                     }
                 }
@@ -60,7 +60,7 @@ public class AllMoviePipeline implements Pipeline<AllMovie> {
             movie.setDirector(director);
             movie.setTag(tag);
             movie.setYear(year);
-            movie.setScore(Float.parseFloat(score));
+            movie.setScore(score);
             System.out.println("Movie : " + JSON.toJSONString(movie));
 
             StringEntity requestEntity = new StringEntity(JSON.toJSONString(movie), "utf-8");

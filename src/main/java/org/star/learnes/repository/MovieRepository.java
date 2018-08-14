@@ -6,6 +6,6 @@ import org.star.learnes.domain.Movie;
 /**
  * 电影ES操作类
  */
-public interface MovieRepository extends ElasticsearchRepository<Movie, String> {
+public interface MovieRepository extends ElasticsearchRepository<Movie, Integer> {
 
 }

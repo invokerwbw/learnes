@@ -14,7 +14,7 @@ public class Movie implements Serializable {
     /**
      * id
      */
-    private String id;
+    private Integer id;
 
     /**
      * 名称
@@ -46,11 +46,11 @@ public class Movie implements Serializable {
      */
     private String quote;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -8,7 +8,7 @@ public class MovieBrief implements HtmlBean {
 
     @Text
     @HtmlField(cssPath = ".pic em")
-    private String id;
+    private Integer id;
 
     @Text
     @HtmlField(cssPath = "div.hd > a > span:nth-child(1)")
@@ -19,19 +19,11 @@ public class MovieBrief implements HtmlBean {
 
     @Text
     @HtmlField(cssPath = ".rating_num")
-    private String score;
+    private Float score;
 
     @Text
     @HtmlField(cssPath = ".quote span.inq")
     private String quote;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -49,19 +41,27 @@ public class MovieBrief implements HtmlBean {
         this.info = info;
     }
 
-    public String getScore() {
-        return score;
-    }
-
-    public void setScore(String score) {
-        this.score = score;
-    }
-
     public String getQuote() {
         return quote;
     }
 
     public void setQuote(String quote) {
         this.quote = quote;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Float getScore() {
+        return score;
+    }
+
+    public void setScore(Float score) {
+        this.score = score;
     }
 }

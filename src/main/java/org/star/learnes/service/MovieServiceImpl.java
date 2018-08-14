@@ -3,13 +3,14 @@ package org.star.learnes.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.star.learnes.domain.Movie;
 import org.star.learnes.repository.MovieRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -32,25 +33,27 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<Movie> listMovie() {
-        Pageable pageable = PageRequest.of(DEFAULT_PAGE, DEFAULT_SIZE);
-        return movieRepository.findAll(pageable).getContent();
+    public Page<Movie> listMovie() {
+        Pageable pageable = PageRequest.of(DEFAULT_PAGE, DEFAULT_SIZE, Sort.by("id"));
+        return movieRepository.findAll(pageable);
     }
 
     @Override
-    public List<Movie> listMovie(int page, int size) {
+    public Page<Movie> listMovie(int page, int size) {
         if (page < 0) {
+            LOGGER.warn("page : " + page + " less than zero");
             page = DEFAULT_PAGE;
         }
         if (size < 0) {
+            LOGGER.warn("size : " + size + " less than zero");
             size = DEFAULT_SIZE;
         }
-        Pageable pageable = PageRequest.of(page, size);
-        return movieRepository.findAll(pageable).getContent();
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id"));
+        return movieRepository.findAll(pageable);
     }
 
     @Override
-    public Movie getMovieById(String id) {
+    public Movie getMovieById(Integer id) {
         Optional<Movie> movie = movieRepository.findById(id);
         if (movie.isPresent()) {
             return movie.get();

@@ -1,8 +1,7 @@
 package org.star.learnes.service;
 
+import org.springframework.data.domain.Page;
 import org.star.learnes.domain.Movie;
-
-import java.util.List;
 
 /**
  * 电影接口类
@@ -22,7 +21,7 @@ public interface MovieService {
      *
      * @return
      */
-    List<Movie> listMovie();
+    Page<Movie> listMovie();
 
     /**
      * 获取电影列表（带分页信息）
@@ -31,13 +30,13 @@ public interface MovieService {
      * @param size
      * @return
      */
-    List<Movie> listMovie(int page, int size);
+    Page<Movie> listMovie(int page, int size);
 
     /**
      * 根据ID获取指定电影
      *
      * @return
      */
-    Movie getMovieById(String id);
+    Movie getMovieById(Integer id);
 
 }
