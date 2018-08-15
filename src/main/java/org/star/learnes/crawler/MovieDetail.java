@@ -6,6 +6,8 @@ import com.geccocrawler.gecco.annotation.RequestParameter;
 import com.geccocrawler.gecco.annotation.Text;
 import com.geccocrawler.gecco.spider.HtmlBean;
 
+import java.util.List;
+
 @Gecco(matchUrl = "https://movie.douban.com/subject/{id}/", pipelines = {"consolePipeline", "movieDetailPipeline"})
 public class MovieDetail implements HtmlBean {
 
@@ -14,7 +16,7 @@ public class MovieDetail implements HtmlBean {
 
     @Text
     @HtmlField(cssPath = "#info > span:nth-child(1) > span.attrs > a")
-    private String director;
+    private List<String> directors;
 
     @Text
     @HtmlField(cssPath = ".year")
@@ -28,12 +30,12 @@ public class MovieDetail implements HtmlBean {
         this.id = id;
     }
 
-    public String getDirector() {
-        return director;
+    public List<String> getDirectors() {
+        return directors;
     }
 
-    public void setDirector(String director) {
-        this.director = director;
+    public void setDirectors(List<String> directors) {
+        this.directors = directors;
     }
 
     public String getYear() {

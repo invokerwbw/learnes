@@ -12,7 +12,6 @@ import org.apache.http.util.EntityUtils;
 import org.star.learnes.domain.Movie;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @PipelineName("movieDetailPipeline")
@@ -20,19 +19,12 @@ public class MovieDetailPipeline implements Pipeline<MovieDetail> {
     @Override
     public void process(MovieDetail movieDetail) {
 
-        List<String> directors = new ArrayList<String>();
         String id = movieDetail.getId();
-        String director = movieDetail.getDirector();
+        List<String> directors = movieDetail.getDirectors();
         String year = movieDetail.getYear();
 
         if (year != null) {
             year = year.replace("(", "").replace(")", "");
-        }
-        if (director != null) {
-            String[] directorArray = director.split("/");
-            for (String text : directorArray) {
-                directors.add(text.trim());
-            }
         }
 
         Movie movie = new Movie();
