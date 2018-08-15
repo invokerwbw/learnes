@@ -40,6 +40,7 @@ public class MovieServiceImpl implements MovieService {
             Movie oldMovie = old.get();
             oldMovie.setYear(movie.getYear());
             oldMovie.setDirector(movie.getDirector());
+            oldMovie.setStarring(movie.getStarring());
             return movieRepository.save(oldMovie);
         } else {
             return null;

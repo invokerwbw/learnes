@@ -26,6 +26,7 @@ public class MovieDetailPipeline implements Pipeline<MovieDetail> {
 
         String id = movieDetail.getId();
         List<String> directors = movieDetail.getDirectors();
+        List<String> starring = movieDetail.getStarring();
         String year = movieDetail.getYear();
 
         if (year != null) {
@@ -36,6 +37,7 @@ public class MovieDetailPipeline implements Pipeline<MovieDetail> {
         movie.setId(id);
         movie.setDirector(directors);
         movie.setYear(year);
+        movie.setStarring(starring);
 
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost post = new HttpPost("http://localhost:8080/movie");

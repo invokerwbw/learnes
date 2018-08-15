@@ -1,6 +1,8 @@
 package org.star.learnes.domain;
 
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.io.Serializable;
 import java.util.List;
@@ -32,6 +34,12 @@ public class Movie implements Serializable {
     private List<String> director;
 
     /**
+     * 主演
+     */
+    @Field(type = FieldType.Keyword)
+    private List<String> starring;
+
+    /**
      * 年份
      */
     private String year;
@@ -39,6 +47,7 @@ public class Movie implements Serializable {
     /**
      * 标签
      */
+    @Field(type = FieldType.Keyword)
     private List<String> tag;
 
     /**
@@ -130,5 +139,13 @@ public class Movie implements Serializable {
 
     public void setDirector(List<String> director) {
         this.director = director;
+    }
+
+    public List<String> getStarring() {
+        return starring;
+    }
+
+    public void setStarring(List<String> starring) {
+        this.starring = starring;
     }
 }

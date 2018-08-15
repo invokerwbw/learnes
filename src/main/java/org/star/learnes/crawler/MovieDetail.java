@@ -19,6 +19,10 @@ public class MovieDetail implements HtmlBean {
     private List<String> directors;
 
     @Text
+    @HtmlField(cssPath = "[rel='v:starring']")
+    private List<String> starring;
+
+    @Text
     @HtmlField(cssPath = ".year")
     private String year;
 
@@ -44,5 +48,13 @@ public class MovieDetail implements HtmlBean {
 
     public void setYear(String year) {
         this.year = year;
+    }
+
+    public List<String> getStarring() {
+        return starring;
+    }
+
+    public void setStarring(List<String> starring) {
+        this.starring = starring;
     }
 }
