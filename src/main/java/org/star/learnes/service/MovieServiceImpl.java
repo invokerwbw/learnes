@@ -67,8 +67,98 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public Page<Movie> listMovieByYear(String year, int page, int size) {
+        if (page < 0) {
+            LOGGER.warn("page : " + page + " less than zero");
+            page = DEFAULT_PAGE;
+        }
+        if (size < 0) {
+            LOGGER.warn("size : " + size + " less than zero");
+            size = DEFAULT_SIZE;
+        }
+        Pageable pageable = PageRequest.of(page, size, Sort.by("ranking"));
+        return movieRepository.findMoviesByYear(year, pageable);
+    }
+
+    @Override
+    public Page<Movie> listMovieByYear(String year) {
+        Pageable pageable = PageRequest.of(DEFAULT_PAGE, DEFAULT_SIZE, Sort.by("ranking"));
+        return movieRepository.findMoviesByYear(year, pageable);
+    }
+
+    @Override
+    public Page<Movie> listMovieByTitle(String title, int page, int size) {
+        if (page < 0) {
+            LOGGER.warn("page : " + page + " less than zero");
+            page = DEFAULT_PAGE;
+        }
+        if (size < 0) {
+            LOGGER.warn("size : " + size + " less than zero");
+            size = DEFAULT_SIZE;
+        }
+        Pageable pageable = PageRequest.of(page, size, Sort.by("ranking"));
+        return movieRepository.findMoviesByTitle(title, pageable);
+    }
+
+    @Override
+    public Page<Movie> listMovieByTitle(String title) {
+        Pageable pageable = PageRequest.of(DEFAULT_PAGE, DEFAULT_SIZE, Sort.by("ranking"));
+        return movieRepository.findMoviesByTitle(title, pageable);
+    }
+
+    @Override
+    public Page<Movie> listMovieByDirector(String director, int page, int size) {
+        if (page < 0) {
+            LOGGER.warn("page : " + page + " less than zero");
+            page = DEFAULT_PAGE;
+        }
+        if (size < 0) {
+            LOGGER.warn("size : " + size + " less than zero");
+            size = DEFAULT_SIZE;
+        }
+        Pageable pageable = PageRequest.of(page, size, Sort.by("ranking"));
+        return movieRepository.findMoviesByDirector(director, pageable);
+    }
+
+    @Override
+    public Page<Movie> listMovieByDirector(String director) {
+        Pageable pageable = PageRequest.of(DEFAULT_PAGE, DEFAULT_SIZE, Sort.by("ranking"));
+        return movieRepository.findMoviesByDirector(director, pageable);
+    }
+
+    @Override
+    public Page<Movie> listMovieByTag(String tag, int page, int size) {
+        if (page < 0) {
+            LOGGER.warn("page : " + page + " less than zero");
+            page = DEFAULT_PAGE;
+        }
+        if (size < 0) {
+            LOGGER.warn("size : " + size + " less than zero");
+            size = DEFAULT_SIZE;
+        }
+        Pageable pageable = PageRequest.of(page, size, Sort.by("ranking"));
+        return movieRepository.findMoviesByTag(tag, pageable);
+    }
+
+    @Override
+    public Page<Movie> listMovieByTag(String tag) {
+        Pageable pageable = PageRequest.of(DEFAULT_PAGE, DEFAULT_SIZE, Sort.by("ranking"));
+        return movieRepository.findMoviesByTag(tag, pageable);
+    }
+
+    @Override
     public Movie getMovieById(String id) {
         Optional<Movie> movie = movieRepository.findById(id);
+        if (movie.isPresent()) {
+            return movie.get();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Movie getMovieByRanking(Integer ranking) {
+        Optional<Movie> movie = movieRepository.findMovieByRanking(ranking);
         if (movie.isPresent()) {
             return movie.get();
         } else {

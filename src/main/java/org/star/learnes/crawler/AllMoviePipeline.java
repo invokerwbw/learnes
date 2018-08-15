@@ -13,6 +13,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.star.learnes.domain.Movie;
 
 import java.io.IOException;
@@ -22,6 +24,9 @@ import java.util.List;
 
 @PipelineName("allMoviePipeline")
 public class AllMoviePipeline implements Pipeline<AllMovie> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AllMoviePipeline.class);
+
     @Override
     public void process(AllMovie allMovie) {
 
@@ -71,7 +76,7 @@ public class AllMoviePipeline implements Pipeline<AllMovie> {
             movie.setYear(year);
             movie.setScore(score);
             movie.setUrl(url);
-//            System.out.println("Movie : " + JSON.toJSONString(movie));
+//            LOGGER.info("Movie : " + JSON.toJSONString(movie));
 
             StringEntity requestEntity = new StringEntity(JSON.toJSONString(movie), "utf-8");
             requestEntity.setContentEncoding("UTF-8");
@@ -79,7 +84,7 @@ public class AllMoviePipeline implements Pipeline<AllMovie> {
             try {
                 CloseableHttpResponse response = client.execute(put);
                 String responseContent = EntityUtils.toString(response.getEntity(), "UTF-8");
-                System.out.println("save movie : " + responseContent);
+                LOGGER.info("save movie : " + responseContent);
             } catch (IOException e) {
                 e.printStackTrace();
             }

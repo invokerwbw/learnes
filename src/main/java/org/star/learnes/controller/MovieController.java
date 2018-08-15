@@ -62,6 +62,24 @@ public class MovieController {
     }
 
     /**
+     * 根据排名获取指定电影
+     *
+     * @param ranking
+     * @return
+     */
+    @GetMapping(value = "/movie_ranking/{ranking}")
+    public ResponseEntity<Movie> getMovieByRanking(@PathVariable Integer ranking) {
+
+        Movie movie = movieService.getMovieByRanking(ranking);
+        if (movie != null) {
+            return ResponseEntity.ok(movie);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
+    /**
      * 获取电影列表（使用默认分页）
      *
      * @return
@@ -72,7 +90,7 @@ public class MovieController {
     }
 
     /**
-     * 获取电影列表（带分页参数）
+     * 获取电影列表（需分页参数）
      *
      * @param page
      * @param size
@@ -81,6 +99,102 @@ public class MovieController {
     @GetMapping(value = "/movies/{page}/{size}")
     public ResponseEntity<Page<Movie>> listMovie(@PathVariable int page, @PathVariable int size) {
         return ResponseEntity.ok(movieService.listMovie(page, size));
+    }
+
+    /**
+     * 按年份获取电影列表（需分页参数）
+     *
+     * @param year
+     * @param page
+     * @param size
+     * @return
+     */
+    @GetMapping(value = "/movies_year/{year}/{page}/{size}")
+    public ResponseEntity<Page<Movie>> listMovieByYear(@PathVariable String year, @PathVariable int page, @PathVariable int size) {
+        return ResponseEntity.ok(movieService.listMovieByYear(year, page, size));
+    }
+
+    /**
+     * 按年份获取电影列表（使用默认分页）
+     *
+     * @param year
+     * @return
+     */
+    @GetMapping(value = "/movies_year/{year}")
+    public ResponseEntity<Page<Movie>> listMovieByYear(@PathVariable String year) {
+        return ResponseEntity.ok(movieService.listMovieByYear(year));
+    }
+
+    /**
+     * 按名称获取电影列表（需分页参数）
+     *
+     * @param title
+     * @param page
+     * @param size
+     * @return
+     */
+    @GetMapping(value = "/movies_title/{title}/{page}/{size}")
+    public ResponseEntity<Page<Movie>> listMovieByTitle(@PathVariable String title, @PathVariable int page, @PathVariable int size) {
+        return ResponseEntity.ok(movieService.listMovieByTitle(title, page, size));
+    }
+
+    /**
+     * 按名称获取电影列表（使用默认分页）
+     *
+     * @param title
+     * @return
+     */
+    @GetMapping(value = "/movies_title/{title}")
+    public ResponseEntity<Page<Movie>> listMovieByTitle(@PathVariable String title) {
+        return ResponseEntity.ok(movieService.listMovieByTitle(title));
+    }
+
+    /**
+     * 按导演获取电影列表（需分页参数）
+     *
+     * @param director
+     * @param page
+     * @param size
+     * @return
+     */
+    @GetMapping(value = "/movies_director/{director}/{page}/{size}")
+    public ResponseEntity<Page<Movie>> listMovieByDirector(@PathVariable String director, @PathVariable int page, @PathVariable int size) {
+        return ResponseEntity.ok(movieService.listMovieByDirector(director, page, size));
+    }
+
+    /**
+     * 按导演获取电影列表（使用默认分页）
+     *
+     * @param director
+     * @return
+     */
+    @GetMapping(value = "/movies_director/{director}")
+    public ResponseEntity<Page<Movie>> listMovieByDirector(@PathVariable String director) {
+        return ResponseEntity.ok(movieService.listMovieByDirector(director));
+    }
+
+    /**
+     * 按标签获取电影列表（需分页参数）
+     *
+     * @param tag
+     * @param page
+     * @param size
+     * @return
+     */
+    @GetMapping(value = "/movies_tag/{tag}/{page}/{size}")
+    public ResponseEntity<Page<Movie>> listMovieByTag(@PathVariable String tag, @PathVariable int page, @PathVariable int size) {
+        return ResponseEntity.ok(movieService.listMovieByTag(tag, page, size));
+    }
+
+    /**
+     * 按标签获取电影列表（使用默认分页）
+     *
+     * @param tag
+     * @return
+     */
+    @GetMapping(value = "/movies_tag/{tag}")
+    public ResponseEntity<Page<Movie>> listMovieByTag(@PathVariable String tag) {
+        return ResponseEntity.ok(movieService.listMovieByTag(tag));
     }
 
 }

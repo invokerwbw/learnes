@@ -9,6 +9,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.star.learnes.domain.Movie;
 
 import java.io.IOException;
@@ -16,6 +18,9 @@ import java.util.List;
 
 @PipelineName("movieDetailPipeline")
 public class MovieDetailPipeline implements Pipeline<MovieDetail> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MovieDetailPipeline.class);
+
     @Override
     public void process(MovieDetail movieDetail) {
 
@@ -42,7 +47,7 @@ public class MovieDetailPipeline implements Pipeline<MovieDetail> {
         try {
             CloseableHttpResponse response = client.execute(post);
             String responseContent = EntityUtils.toString(response.getEntity(), "UTF-8");
-            System.out.println("modify movie : " + responseContent);
+            LOGGER.info("modify movie : " + responseContent);
         } catch (IOException e) {
             e.printStackTrace();
         }
