@@ -174,6 +174,30 @@ public class MovieController {
     }
 
     /**
+     * 按主演获取电影列表（需分页参数）
+     *
+     * @param starring
+     * @param page
+     * @param size
+     * @return
+     */
+    @GetMapping(value = "/movies_starring/{starring}/{page}/{size}")
+    public ResponseEntity<Page<Movie>> listMovieByStarring(@PathVariable String starring, @PathVariable int page, @PathVariable int size) {
+        return ResponseEntity.ok(movieService.listMovieByStarring(starring, page, size));
+    }
+
+    /**
+     * 按主演获取电影列表（使用默认分页）
+     *
+     * @param starring
+     * @return
+     */
+    @GetMapping(value = "/movies_starring/{starring}")
+    public ResponseEntity<Page<Movie>> listMovieByStarring(@PathVariable String starring) {
+        return ResponseEntity.ok(movieService.listMovieByStarring(starring));
+    }
+
+    /**
      * 按标签获取电影列表（需分页参数）
      *
      * @param tag

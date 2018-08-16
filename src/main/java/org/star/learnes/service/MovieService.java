@@ -95,6 +95,24 @@ public interface MovieService {
     Page<Movie> listMovieByDirector(String director);
 
     /**
+     * 按主演获取电影列表（需分页参数）
+     *
+     * @param starring
+     * @param page
+     * @param size
+     * @return
+     */
+    Page<Movie> listMovieByStarring(String starring, int page, int size);
+
+    /**
+     * 按主演获取电影列表（使用默认分页）
+     *
+     * @param starring
+     * @return
+     */
+    Page<Movie> listMovieByStarring(String starring);
+
+    /**
      * 按标签获取电影列表（需分页参数）
      *
      * @param tag

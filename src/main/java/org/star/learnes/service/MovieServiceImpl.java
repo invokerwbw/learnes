@@ -128,6 +128,26 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public Page<Movie> listMovieByStarring(String starring, int page, int size) {
+        if (page < 0) {
+            LOGGER.warn("page : " + page + " less than zero");
+            page = DEFAULT_PAGE;
+        }
+        if (size < 0) {
+            LOGGER.warn("size : " + size + " less than zero");
+            size = DEFAULT_SIZE;
+        }
+        Pageable pageable = PageRequest.of(page, size, Sort.by("ranking"));
+        return movieRepository.findMoviesByStarring(starring, pageable);
+    }
+
+    @Override
+    public Page<Movie> listMovieByStarring(String starring) {
+        Pageable pageable = PageRequest.of(DEFAULT_PAGE, DEFAULT_SIZE, Sort.by("ranking"));
+        return movieRepository.findMoviesByStarring(starring, pageable);
+    }
+
+    @Override
     public Page<Movie> listMovieByTag(String tag, int page, int size) {
         if (page < 0) {
             LOGGER.warn("page : " + page + " less than zero");
@@ -150,20 +170,12 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public Movie getMovieById(String id) {
         Optional<Movie> movie = movieRepository.findById(id);
-        if (movie.isPresent()) {
-            return movie.get();
-        } else {
-            return null;
-        }
+        return movie.orElse(null);
     }
 
     @Override
     public Movie getMovieByRanking(Integer ranking) {
         Optional<Movie> movie = movieRepository.findMovieByRanking(ranking);
-        if (movie.isPresent()) {
-            return movie.get();
-        } else {
-            return null;
-        }
+        return movie.orElse(null);
     }
 }

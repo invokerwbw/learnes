@@ -31,6 +31,15 @@ public interface MovieRepository extends ElasticsearchRepository<Movie, String> 
     Page<Movie> findMoviesByDirector(String director, Pageable pageable);
 
     /**
+     * 按主演获取电影列表
+     *
+     * @param starring
+     * @param pageable
+     * @return
+     */
+    Page<Movie> findMoviesByStarring(String starring, Pageable pageable);
+
+    /**
      * 按年份获取电影列表
      *
      * @param year
